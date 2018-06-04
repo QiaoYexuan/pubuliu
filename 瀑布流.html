@@ -19,15 +19,32 @@
 		let margin = 10;
 		let sjw = picW + margin
 		let len = Math.floor((iw-margin)/sjw)
-		
+
 		ul.style.width = len*sjw + 'px'
-		
+
 		let arrL = [];
 		let arrT = [];
 		let num=0;
+
 		for(let i=0;i<len;i++){
 			arrL.push(sjw * i)
 			arrT.push(0)
 		}
+		
+		fetchJsonp(url,{jsonpCallback: 'callback'})
+		.then(res=>res.json()).then(res=>{
+			console.log(res)
+			let html = '';
+			res.forEach(e=>{
+				let img = new Image;
+				img.src = e.preview
+
+				img.onload = function(){
+					num++;
+					
+				}
+			});
+			ul.innerHTML = html
+		})
 	</script>
 </html>
